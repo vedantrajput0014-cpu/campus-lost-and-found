@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#11100e">
+  <meta name="description" content="Lost &amp; Found. A campus board for Flame University. Report what's missing, return what's found, and find matches.">
+  <title>Lost &amp; Found, Flame Campus</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/static/fonts/fraunces-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/static/fonts/jetbrains-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Campus navigation">
+      <div class="sidebar-inner">
+        <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="sidebar">
+          <svg class="icon-panel-close" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+            <path d="M9 3v18"></path>
+            <path d="m16 15-3-3 3-3"></path>
+          </svg>
+          <svg class="icon-panel-open" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+            <path d="M9 3v18"></path>
+            <path d="m14 9 3 3-3 3"></path>
+          </svg>
+        </button>
+
+        <a class="brand" href="#feed" data-nav="feed" aria-label="Lost and Found, go to campus feed">
+          <span class="brand-mark" aria-hidden="true">L/F</span>
+          <span class="brand-copy">
+            <span class="brand-name">Lost &amp; Found</span>
+            <span class="brand-sub">Flame Campus</span>
+          </span>
+        </a>
+
+        <div class="sidebar-section-head">
+          <span>Navigation</span>
+        </div>
+
+        <nav class="nav-list" aria-label="Pages">
+          <a class="nav-link is-active" href="#feed" data-nav="feed" aria-current="page" data-tooltip="Campus Feed">
+            <svg class="nav-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+              <path d="M18 14h-8"></path>
+              <path d="M15 18h-5"></path>
+              <path d="M10 6h8v4h-8V6Z"></path>
+            </svg>
+            <span class="nav-label">Campus feed</span>
+          </a>
+          <a class="nav-link" href="#matches" data-nav="matches" data-tooltip="Matches">
+            <svg class="nav-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="10" cy="20" r="2"></circle>
+              <path d="M10 18V6s0-2 2-2h4"></path>
+              <path d="m12 2 2 2-2 2"></path>
+              <circle cx="14" cy="4" r="2"></circle>
+              <path d="M14 6v12s0 2-2 2h-4"></path>
+              <path d="m12 22-2-2 2-2"></path>
+            </svg>
+            <span class="nav-label">Matches</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="sidebar-foot-link">
+            <a href="#privacy" data-nav="privacy" data-tooltip="Privacy">
+              <svg class="nav-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+              <span>Privacy</span>
+            </a>
+          </div>
+
+          <div class="profile-slot">
+            <button class="profile-button" id="profileButton" type="button" aria-haspopup="menu" aria-expanded="false">
+              <span class="avatar avatar-guest" id="profileAvatar">G</span>
+              <span class="profile-copy">
+                <span class="profile-name" id="profileName">Guest</span>
+                <span class="profile-sub" id="profileSub">Sign in with Flame</span>
+              </span>
+              <span class="profile-caret" aria-hidden="true"></span>
+            </button>
+            <div class="profile-menu" id="profileMenu" role="menu" hidden>
+              <div class="profile-menu-head">
+                <span class="mono-label">Signed in</span>
+                <span class="live-dot" aria-hidden="true"></span>
+              </div>
+              <p class="profile-menu-name" id="menuName"></p>
+              <p class="profile-menu-email" id="menuEmail"></p>
+              <button class="profile-menu-action" id="signOutButton" type="button" role="menuitem">Sign out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <header class="mobile-header">
+      <a class="mobile-brand" href="#feed" data-nav="feed" aria-label="Lost and Found, campus feed">
+        <span class="brand-mark brand-mark-small" aria-hidden="true">L/F</span>
+        <span class="mobile-brand-name">Lost &amp; Found</span>
+      </a>
+      <nav class="mobile-nav" aria-label="Pages">
+        <a class="mobile-nav-link is-active" href="#feed" data-nav="feed" aria-current="page">Feed</a>
+        <a class="mobile-nav-link" href="#matches" data-nav="matches">Matches</a>
+        <a class="mobile-nav-link" href="#privacy" data-nav="privacy">Privacy</a>
+      </nav>
+      <button class="mobile-account" id="mobileAccountButton" type="button" aria-label="Sign in with your Flame email">
+        <span class="mobile-signin-label">Sign in</span>
+        <span class="avatar avatar-small avatar-guest" id="mobileAvatar">G</span>
+      </button>
+      <div class="mobile-account-menu" id="mobileAccountMenu" role="menu" hidden>
+        <span class="mono-label">Signed in</span>
+        <p id="mobileMenuName"></p>
+        <span id="mobileMenuEmail"></span>
+        <button class="profile-menu-action" id="mobileSignOutButton" type="button" role="menuitem">Sign out</button>
+      </div>
+    </header>
+
+    <main class="main" id="main-content" tabindex="-1">
+      <div class="loading-bar" id="loadingBar" hidden aria-hidden="true"><span></span></div>
+      <div class="main-inner">
+        <div class="pages">
+          <section class="page is-active" id="page-feed" data-page="feed" aria-labelledby="feedTitle">
+            <header class="page-head">
+              <div class="page-head-copy">
+                <h1 class="page-title sr-only" id="feedTitle" tabindex="-1">Campus feed</h1>
+              </div>
+              <div class="page-head-tools">
+                <label class="search-box" for="feedSearch">
+                  <svg class="search-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.35-4.35"></path></svg>
+                  <input id="feedSearch" type="search" placeholder="Search items..." autocomplete="off" aria-label="Search items">
+                  <button class="search-clear" id="searchClear" type="button" aria-label="Clear search" hidden>Clear</button>
+                </label>
+              </div>
+            </header>
+
+            <section class="composer-section" aria-labelledby="composerHeading">
+              <div class="composer-stage">
+                <h2 class="composer-heading" id="composerHeading">Tell us what you lost or found.</h2>
+
+                <form class="composer" id="reportForm" novalidate>
+                  <div class="composer-capsule" id="composerCapsule">
+                    <button type="button" class="composer-attach" id="photoButton" aria-label="Attach a photo" aria-pressed="false" title="Attach a photo">
+                      <svg class="photo-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                        <circle cx="8.5" cy="7.5" r="1.4" fill="currentColor" stroke="none"></circle>
+                        <path d="m21 15-4.5-4.5a2.12 2.12 0 0 0-3 0L3 18v3h3"></path>
+                      </svg>
+                    </button>
+                    <textarea class="composer-text" id="composerText" name="text" rows="1" maxlength="800" placeholder="Describe your lost or found item..." aria-label="Describe your lost or found item"></textarea>
+                    <button type="button" class="composer-mic" id="dictateButton" aria-label="Dictate a report" aria-pressed="false" title="Dictate a report">
+                      <svg class="voice-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2a7 7 0 0 1 14 0Z"></path>
+                        <path d="M12 19v3"></path>
+                      </svg>
+                      <span class="voice-dot" aria-hidden="true"></span>
+                    </button>
+                    <button class="composer-submit" id="reportButton" type="submit" disabled aria-disabled="true" aria-label="Submit report">
+                      <svg class="arrow-up" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"></path><path d="m5 12 7-7 7 7"></path></svg>
+                    </button>
+                    <input id="photoInput" type="file" accept="image/*" hidden>
+                  </div>
+
+                  <div class="composer-fields" id="composerFields">
+                    <label class="sr-only" for="itemTitle">Item title</label>
+                    <input class="composer-title" id="itemTitle" name="title" type="text" maxlength="120" placeholder="Title" autocomplete="off">
+                    <label class="sr-only" for="itemDescription">Description (optional)</label>
+                    <textarea class="composer-description" id="itemDescription" name="description" rows="1" maxlength="800" placeholder="Add details. Colour, condition, distinguishing marks. Optional."></textarea>
+
+                    <p class="voice-hint"><strong>Voice note.</strong> Speak naturally. The transcript is tidied into a title and description before it lands here.</p>
+
+                    <div class="dictation-strip" id="dictationStrip" role="status" hidden>
+                      <span class="dictation-dot" aria-hidden="true"></span>
+                      <span id="dictationStatus">Listening. Speak now.</span>
+                      <button class="dictation-stop" id="dictationStop" type="button">Stop</button>
+                    </div>
+
+                    <p class="voice-status" id="voiceStatus" role="status" hidden></p>
+
+                    <div class="photo-chip" id="photoPreview" hidden>
+                      <img id="photoPreviewImage" alt="Selected item photo">
+                      <span class="photo-chip-copy">
+                        <strong>Photo attached</strong>
+                        <span id="photoPreviewMeta"></span>
+                      </span>
+                      <button class="text-button photo-remove" id="removePhotoButton" type="button" aria-label="Remove photo">Remove</button>
+                    </div>
+
+                    <div class="composer-bottom">
+                      <div class="composer-options">
+                        <label class="select-shell" for="itemLocation">
+                          <span class="select-label">Location</span>
+                          <select id="itemLocation" name="location">
+                            <option value="" selected disabled>Choose</option>
+                            <option value="Library">Library</option>
+                            <option value="Canteen">Canteen</option>
+                            <option value="Classroom">Classroom</option>
+                            <option value="Dorm">Dorm</option>
+                            <option value="Lab">Lab</option>
+                            <option value="Gym">Gym</option>
+                            <option value="Parking">Parking</option>
+                          <option value="__other__">Other</option>
+                          </select>
+                          <span class="select-caret" aria-hidden="true"></span>
+                        </label>
+                        <div class="custom-location" id="customLocationWrap" hidden>
+                          <label class="sr-only" for="customLocation">Custom location</label>
+                          <input class="custom-location-input" id="customLocation" type="text" maxlength="80" placeholder="Enter location">
+                        </div>
+
+                        <div class="type-switch" role="group" aria-label="Report type">
+                          <button class="type-option is-active" id="typeLost" type="button" data-type="lost" aria-pressed="true">I lost something</button>
+                          <button class="type-option" id="typeFound" type="button" data-type="found" aria-pressed="false">I found something</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </section>>
+
+            <section class="feed-section" aria-labelledby="reportsTitle">
+              <div class="feed-toolbar">
+                <div class="filter-tabs" role="group" aria-label="Filter reports by type">
+                  <button class="filter-tab is-active" type="button" data-status-filter="all" aria-pressed="true">All <span id="countAll">0</span></button>
+                  <button class="filter-tab" type="button" data-status-filter="lost" aria-pressed="false">Lost <span id="countLost">0</span></button>
+                  <button class="filter-tab" type="button" data-status-filter="found" aria-pressed="false">Found <span id="countFound">0</span></button>
+                </div>
+
+                <label class="select-shell select-compact" for="locationFilter">
+                  <select id="locationFilter">
+                    <option value="all">All locations</option>
+                    <option value="Library">Library</option>
+                    <option value="Canteen">Canteen</option>
+                    <option value="Classroom">Classroom</option>
+                    <option value="Dorm">Dorm</option>
+                    <option value="Lab">Lab</option>
+                    <option value="Gym">Gym</option>
+                    <option value="Parking">Parking</option>
+                  </select>
+                  <span class="select-caret" aria-hidden="true"></span>
+                </label>
+              </div>
+
+              <div class="feed-meta-row">
+                <p class="results-summary" id="resultsSummary">Loading reports...</p>
+              </div>
+
+              <h2 class="sr-only" id="reportsTitle">Reports</h2>
+              <div class="item-grid" id="feedGrid" aria-live="polite" aria-busy="true"></div>
+
+              <div class="empty-state" id="feedEmpty" hidden>
+                <h3 id="feedEmptyTitle">No reports found</h3>
+                <p id="feedEmptyCopy">Try a different search or clear the filters to see everything on the board.</p>
+                <button class="secondary-button" id="feedEmptyAction" type="button">Clear filters</button>
+              </div>
+            </section>
+          </section>
+
+          <section class="page" id="page-matches" data-page="matches" aria-labelledby="matchesTitle" hidden>
+            <header class="page-head">
+              <div class="page-head-copy">
+                <h1 class="page-title" id="matchesTitle" tabindex="-1">Potential matches</h1>
+              </div>
+              <div class="match-head-stat">
+                <span class="match-head-number" id="matchHeadCount">0</span>
+                <span class="match-head-label">Potential<br>matches</span>
+              </div>
+            </header>
+
+            <div class="signin-banner" id="matchAuthBanner">
+              <p><strong>Want to reach someone?</strong> Sign in with your Flame email to contact reporters and see the matches that involve your own reports.</p>
+              <button class="secondary-button" id="matchSigninButton" type="button">Sign in</button>
+            </div>
+
+            <div class="match-toolbar">
+              <div class="filter-tabs" role="group" aria-label="Filter matches">
+                <button class="filter-tab is-active" type="button" data-match-filter="all" aria-pressed="true">All pairs <span id="matchAllCount">0</span></button>
+                <button class="filter-tab" type="button" data-match-filter="mine" aria-pressed="false" id="myMatchesTab" hidden>My items <span id="matchMineCount">0</span></button>
+              </div>
+              <p class="match-summary" id="matchSummary">Loading matches...</p>
+            </div>
+
+            <div class="match-list" id="matchList" aria-live="polite" aria-busy="true"></div>
+
+            <div class="empty-state" id="matchEmpty" hidden>
+              <h3 id="matchEmptyTitle">No matches yet</h3>
+              <p id="matchEmptyCopy">When two reports line up by location and detail, they will appear here automatically.</p>
+              <button class="secondary-button" id="matchEmptyAction" type="button">Back to the feed</button>
+            </div>
+          </section>
+
+          <section class="page" id="page-privacy" data-page="privacy" aria-labelledby="privacyTitle" hidden>
+            <header class="page-head">
+              <div class="page-head-copy">
+                <h1 class="page-title" id="privacyTitle" tabindex="-1">Privacy, plainly.</h1>
+              </div>
+              <div class="privacy-stamp">
+                <span class="mono-label">Last updated</span>
+                <span>November 2026</span>
+              </div>
+            </header>
+
+            <div class="privacy-grid">
+              <article class="privacy-block">
+                <span class="privacy-number">01</span>
+                <h2>What we keep</h2>
+                <p>Your Flame email address, the display name that comes from it, the words you put in a report, the location and type you choose, the time you posted, and any photo you attach.</p>
+                <p>We do not ask for a password, a phone number, or your live location. We do not keep a recording of your voice. A dictated transcript is sent to the refiner only when you use the voice note, and it is not stored unless you publish the report.</p>
+              </article>
+
+              <article class="privacy-block">
+                <span class="privacy-number">02</span>
+                <h2>Who can see it</h2>
+                <p>The feed is visible to anyone who has the board open. Reporter names appear on each card, but reporter email addresses do not appear in the public feed.</p>
+                <p>Email addresses are shown only in the contact dialog for signed-in students and on match cards. Photos are served from the same board and follow the same visibility.</p>
+              </article>
+
+              <article class="privacy-block">
+                <span class="privacy-number">03</span>
+                <h2>Where it lives</h2>
+                <p>Reports live in a SQLite database on the campus server. Photos are stored inside that database as compressed image data. The board does not use advertising trackers, third-party analytics, or advertising cookies.</p>
+                <p>Your browser stores your sign-in email in <span class="mono">localStorage</span> so you stay signed in on this device. Signing out removes that local value.</p>
+              </article>
+
+              <article class="privacy-block">
+                <span class="privacy-number">04</span>
+                <h2>How long we keep it</h2>
+                <p>A report stays on the board until the campus maintainer removes it or the database is reset. Signing out does not remove your reports.</p>
+                <p>If you want a report or photo removed, email the address below from your Flame account and include the item title. We will remove it as soon as we can.</p>
+              </article>
+            </div>
+
+            <div class="privacy-contact">
+              <span class="mono-label">Questions or removal</span>
+              <h2>Talk to the board maintainer.</h2>
+              <p>Write to <a href="mailto:lostfound@flame.edu.in">lostfound@flame.edu.in</a>. This is a small campus project, so replies may take a day or two.</p>
+            </div>
+          </section>
+        </div>
+
+        <footer class="site-footer">
+          <div class="footer-count">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span><strong id="footerItemCount">0</strong> items on campus</span>
+          </div>
+          <div class="footer-meta">
+            <span>Flame University</span>
+            <span class="footer-slash" aria-hidden="true">/</span>
+            <a href="#privacy" data-nav="privacy">Privacy</a>
+            <span class="footer-slash" aria-hidden="true">/</span>
+            <span class="mono">2026</span>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="modal" id="authDialog" aria-labelledby="authTitle">
+    <div class="modal-card auth-card">
+      <button class="modal-close" id="authClose" type="button" aria-label="Close sign-in dialog">Close</button>
+      <div class="modal-head">
+        <span class="modal-mark" aria-hidden="true">LF</span>
+        <span class="eyebrow eyebrow-modal">Flame campus network</span>
+        <h2 id="authTitle">Sign in with Flame.</h2>
+        <p class="modal-lede">Use your university email to publish reports and reach students about a match.</p>
+      </div>
+
+      <div class="auth-context" id="authContext" hidden>
+        <span class="live-dot" aria-hidden="true"></span>
+        <span id="authContextText"></span>
+      </div>
+
+      <form class="auth-form" id="authForm" novalidate>
+        <div class="auth-mode-toggle" role="tablist">
+          <button type="button" class="auth-mode is-active" data-auth-mode="login" aria-pressed="true">Sign in</button>
+          <button type="button" class="auth-mode" data-auth-mode="register" aria-pressed="false">Register</button>
+        </div>
+
+        <div class="auth-field" id="authNameField" hidden>
+          <label class="form-label" for="authName">Full name</label>
+          <div class="input-shell">
+            <input id="authName" type="text" autocomplete="name" placeholder="Your name" maxlength="80">
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <label class="form-label" for="authEmail">Flame email address</label>
+          <div class="input-shell" id="authInputShell">
+            <input id="authEmail" type="email" inputmode="email" autocomplete="email" spellcheck="false" placeholder="you@flame.edu.in" aria-describedby="authError authNote">
+          </div>
+        </div>
+
+        <div class="auth-field" id="authPasswordField">
+          <label class="form-label" for="authPassword">Password</label>
+          <div class="input-shell">
+            <input id="authPassword" type="password" autocomplete="current-password" placeholder="At least 8 characters">
+            <button type="button" class="password-toggle" id="passwordToggle" aria-label="Show password">Show</button>
+          </div>
+        </div>
+
+        <div class="auth-field" id="authConfirmField" hidden>
+          <label class="form-label" for="authConfirm">Confirm password</label>
+          <div class="input-shell">
+            <input id="authConfirm" type="password" autocomplete="new-password" placeholder="Repeat password">
+          </div>
+        </div>
+
+        <p class="form-error" id="authError" role="alert" hidden></p>
+        <button class="primary-button auth-submit" id="authSubmit" type="submit">
+          <span id="authSubmitLabel">Continue</span>
+        </button>
+        <p class="auth-note" id="authNote">Only <span class="mono">@flame.edu.in</span> addresses are accepted. <a href="#" id="forgotLink">Forgot password?</a> · <a href="#privacy" data-nav="privacy">Privacy</a>.</p>
+      </form>
+
+      <div class="modal-foot">
+        <span class="mono">01</span>
+        <span>Campus access</span>
+        <span class="footer-slash" aria-hidden="true">/</span>
+        <span>Flame University</span>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal" id="contactDialog" aria-labelledby="contactTitle">
+    <div class="modal-card contact-card">
+      <button class="modal-close" id="contactClose" type="button" aria-label="Close contact dialog">Close</button>
+      <div class="modal-head">
+        <span class="modal-mark modal-mark-quiet" aria-hidden="true">@</span>
+        <span class="eyebrow eyebrow-modal">Campus contact</span>
+        <h2 id="contactTitle">Reach out.</h2>
+        <p class="modal-lede" id="contactIntro"></p>
+      </div>
+
+      <div class="contact-item">
+        <span class="badge badge-lost" id="contactBadge">Lost</span>
+        <p id="contactItemTitle"></p>
+      </div>
+
+      <div class="email-display">
+        <div class="email-display-copy">
+          <span class="mono-label">Campus email</span>
+          <span id="contactEmail"></span>
+        </div>
+        <button class="text-button" id="copyEmailButton" type="button">
+          <span id="copyEmailLabel">Copy</span>
+        </button>
+      </div>
+
+      <a class="primary-button contact-open" id="contactMailLink" href="#">
+        <span>Open mail app</span>
+      </a>
+      <p class="contact-note">Keep it specific. Mention the item and a time you can meet on campus.</p>
+    </div>
+  </dialog>
+
+  <div class="toast-region" id="toastRegion" aria-live="polite" aria-relevant="additions"></div>
+
+  <script src="/static/js/app.js" defer></script>
+</body>
+</html>
